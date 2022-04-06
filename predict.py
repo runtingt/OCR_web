@@ -1,6 +1,5 @@
 import imageio
 import numpy as np
-import matplotlib.pyplot as plt
 import os
 
 # Suppress warnings, don't use gpu
