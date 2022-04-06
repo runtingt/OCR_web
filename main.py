@@ -11,7 +11,6 @@ model = load_model(model_path)
 
 # Predict
 prediction = predict.test(model, 28, 28)
-app.logger.info("Start-up complete")
 
 @app.route('/')
 def root():
