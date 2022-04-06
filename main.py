@@ -11,10 +11,11 @@ model = load_model(model_path)
 
 # Predict
 prediction = predict.test(model, 28, 28)
+app.logger.info("Start-up complete")
 
 @app.route('/')
 def root():
-    app.logger.info("Prediction: " + prediction)
+    app.logger.info("Prediction: " + str(prediction))
     return render_template('index.html', pred=prediction)
 
 if __name__ == '__main__':
