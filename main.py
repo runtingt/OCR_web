@@ -6,7 +6,7 @@ from tensorflow.keras.models import load_model
 app = Flask(__name__)
 
 # Load the model
-model_path = 'models/test_model.h5'
+model_path = 'models/model.h5'
 model = load_model(model_path)
 
 # Predict
