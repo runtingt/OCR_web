@@ -14,6 +14,7 @@ prediction = predict.test(model, 28, 28)
 
 @app.route('/')
 def root():
+    app.logger.info("Prediction: " + prediction)
     return render_template('index.html', pred=prediction)
 
 if __name__ == '__main__':
