@@ -13,7 +13,7 @@ model = load_model(model_path)
 prediction = predict.test(model, 28, 28)
 
 # Display the homepage
-@app.route('/', methods='GET')
+@app.route('/', methods=['GET'])
 def root():
     app.logger.info("Prediction: " + str(prediction))
     app.logger.info("Recieved: " + str(request.data))
