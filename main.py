@@ -22,7 +22,7 @@ def root():
 # Handle requests to predict values
 @app.route('/predict')
 def pred():
-    app.logger.info("Recieved: " + request.args.to_dict().keys())
+    app.logger.info("Recieved: " + str(request.args.to_dict().keys()))
     prediction = "Null"
     try:
         app.logger.info("Converted:" + str(request.args.to_dict()['Base64String'][0:4]))
