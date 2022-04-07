@@ -30,18 +30,19 @@ def test(model, img_rows, img_cols):
 # Predict digits from a base64 string
 def predict_from_string(base64_string, model, img_rows, img_cols):
     # Grab image, sharped and convert to grayscale
+    print(base64_string)
     image = base64.b64decode(base64_string)
     image = Image.open(io.BytesIO(image))
-    image = image.resize((28, 28))
+    image = image.resize((img_rows, img_cols))
     image = ImageEnhance.Sharpness(image).enhance(3)
     image = ImageOps.grayscale(image)
 
     # Convert to numpy array and normalise
-    image_array = np.array(image).reshape(1, 28, 28, 1)
+    image_array = np.array(image).reshape(1, img_rows, img_cols, 1)
     image_array = np.divide(image_array, 255)
     image_array = np.subtract(1, image_array)
     image_array = np.power(image_array, 2)
-    
+
     # Predict the digit
     prediction = model.predict(image_array)
 
