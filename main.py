@@ -18,6 +18,7 @@ def root():
     app.logger.info("Prediction: " + str(prediction))
     app.logger.info("Recieved: " + str(request.data))
     app.logger.info("Args: " + str(request.args))
+    app.logger.info("Converted:" + str(request.args.to_dict()))
     return render_template('index.html', pred=prediction)
 
 if __name__ == '__main__':
