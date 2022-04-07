@@ -1,4 +1,3 @@
-from crypt import methods
 import logging
 import predict
 from flask import Flask, render_template, request
@@ -36,7 +35,7 @@ def pred():
 
 if __name__ == '__main__':
     # Used only when running locally
-    app.run(host='127.0.0.1', port=8080, debug=True)
+    app.run(host='0.0.0.0', port=5000, debug=True)
 
 if __name__ != '__main__':
     # Add gunicorn logging functionality
