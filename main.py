@@ -13,15 +13,11 @@ model = load_model(model_path)
 prediction = predict.test(model, 28, 28)
 
 # Display the homepage
-@app.route('/')
+@app.route('/', methods='GET')
 def root():
     app.logger.info("Prediction: " + str(prediction))
-    return render_template('index.html', pred=prediction)
-
-# Handle get requests
-@app.route('/', methods='GET')
-def predict():
     app.logger.info("Recieved: " + str(request.data))
+    return render_template('index.html', pred=prediction)
 
 if __name__ == '__main__':
     # Used only when running locally
