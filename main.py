@@ -2,9 +2,11 @@ from crypt import methods
 import logging
 import predict
 from flask import Flask, render_template, request
+from flask_cors import CORS
 from tensorflow.keras.models import load_model
 
 app = Flask(__name__)
+CORS(app)
 
 # Load the model
 model_path = 'models/model.h5'
@@ -25,7 +27,6 @@ def pred():
     app.logger.info("Recieved: " + str(request.args.to_dict().keys()))
     prediction = "Null"
     try:
-        app.logger.info("Converted:" + str(request.args.to_dict()['Base64String'][0:4]))
         base64_string = request.args.to_dict()['Base64String'][22:]
         prediction = str(predict.predict_from_string(base64_string, model, 28, 28))
         app.logger.info("Prediction: " + prediction)
