@@ -28,6 +28,7 @@ def pred():
         app.logger.info("Converted:" + str(request.args.to_dict()['Base64String'][0:4]))
         base64_string = request.args.to_dict()['Base64String'][22:]
         prediction = str(predict.predict_from_string(base64_string, model, 28, 28))
+        app.logger.info("Prediction: " + prediction)
     except KeyError:
         pass
     return prediction
