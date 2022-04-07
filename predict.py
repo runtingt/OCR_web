@@ -1,6 +1,10 @@
 import imageio
 import numpy as np
 import os
+import base64
+import io
+from PIL import Image, ImageOps
+from tensorflow.keras.models import load_model
 
 # Suppress warnings, don't use gpu
 os.environ['KMP_DUPLICATE_LIB_OK']='True'
@@ -22,3 +26,19 @@ def test(model, img_rows, img_cols):
     prediction = model.predict(gray)
 
     return prediction.argmax()
+
+# Predict digits from a base64 string
+def predict_from_string(base64_string, model, img_rows, img_cols):
+    # Grab image, convert to grayscale then to numpy array
+    image = base64.b64decode(base64_string)
+    image = Image.open(io.BytesIO(image))
+    image = image.resize((img_rows, img_cols))
+    image = ImageOps.grayscale(image)
+    image_array = np.array(image).reshape(1, img_rows, img_cols, 1)
+    image_array = np.divide(image_array, 255)
+    image_array = np.power(image_array, 255)
+
+    # Predict the digit
+    prediction = model.predict(image_array)
+
+    return prediction

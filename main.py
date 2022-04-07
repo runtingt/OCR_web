@@ -1,3 +1,4 @@
+from crypt import methods
 import logging
 import predict
 from flask import Flask, render_template, request
@@ -13,13 +14,23 @@ model = load_model(model_path)
 prediction = predict.test(model, 28, 28)
 
 # Display the homepage
-@app.route('/', methods=['GET'])
+@app.route('/')
 def root():
     app.logger.info("Prediction: " + str(prediction))
-    app.logger.info("Recieved: " + str(request.data))
-    app.logger.info("Args: " + str(request.args))
-    app.logger.info("Converted:" + str(request.args.to_dict()['Base64String'][0:2]))
     return render_template('index.html', pred=prediction)
+
+# Handle requests to predict values
+@app.route('/predict')
+def pred():
+    app.logger.info("Recieved: " + request.args.to_dict().keys())
+    prediction = "Null"
+    try:
+        app.logger.info("Converted:" + str(request.args.to_dict()['Base64String'][0:4]))
+        base64_string = request.args.to_dict()['Base64String'][22:]
+        prediction = str(predict.predict_from_string(base64_string, model, 28, 28))
+    except KeyError:
+        pass
+    return prediction
 
 if __name__ == '__main__':
     # Used only when running locally
