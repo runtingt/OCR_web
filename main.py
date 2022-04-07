@@ -17,6 +17,7 @@ prediction = predict.test(model, 28, 28)
 def root():
     app.logger.info("Prediction: " + str(prediction))
     app.logger.info("Recieved: " + str(request.data))
+    app.logger.info("Args: " + str(request.args))
     return render_template('index.html', pred=prediction)
 
 if __name__ == '__main__':
