@@ -44,6 +44,6 @@ def predict_from_string(base64_string, model, img_rows, img_cols):
     image_array = np.power(image_array, 2)
 
     # Predict the digit
-    prediction = model.predict(image_array)
+    prediction = np.argmax(model.predict(image_array))
 
     return prediction
